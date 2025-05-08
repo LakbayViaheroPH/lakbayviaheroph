@@ -25,6 +25,9 @@ const ContactSection: React.FC = () => {
     service: '',
     message: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | null>(null);
+  const [submitMessage, setSubmitMessage] = useState('');
   
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -66,19 +69,45 @@ const ContactSection: React.FC = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
   
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    alert('Thank you for your message! We will contact you soon.');
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      address: '',
-      subject: '',
-      service: '',
-      message: ''
-    });
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+    setSubmitMessage('');
+
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        setSubmitStatus('success');
+        setSubmitMessage(result.message || 'Thank you! Your message has been sent.');
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          address: '',
+          subject: '',
+          service: '',
+          message: ''
+        });
+      } else {
+        setSubmitStatus('error');
+        setSubmitMessage(result.error || 'Sorry, something went wrong. Please try again.');
+      }
+    } catch (error) {
+      setSubmitStatus('error');
+      setSubmitMessage('An unexpected error occurred. Please check your connection and try again.');
+      console.error('Form submission error:', error);
+    }
+    setIsSubmitting(false);
   };
   
   return (
@@ -146,13 +175,26 @@ const ContactSection: React.FC = () => {
               {/* Message */}
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">Message</label>
-                <textarea id="message" name="message" value={formData.message} onChange={handleChange} rows={5} required className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"></textarea>
+                <textarea id="message" name="message" value={formData.message} onChange={handleChange} rows={5} required className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" disabled={isSubmitting}></textarea>
               </div>
               {/* Submit Button */}
-              <button type="submit" className="flex items-center justify-center w-full px-6 py-3 bg-blue-900 text-white rounded-lg font-medium hover:bg-blue-700 transform transition hover:scale-105 duration-300">
+              <button 
+                type="submit" 
+                className={`flex items-center justify-center w-full px-6 py-3 bg-blue-900 text-white rounded-lg font-medium hover:bg-blue-700 transform transition hover:scale-105 duration-300 ${
+                  isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+                }`}
+                disabled={isSubmitting}
+              >
                 <Send size={18} className="mr-2" />
-                Send Message
+                {isSubmitting ? 'Sending...' : 'Send Message'}
               </button>
+              {submitStatus && (
+                <div className={`mt-4 text-center p-3 rounded-lg ${
+                  submitStatus === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+                }`}>
+                  {submitMessage}
+                </div>
+              )}
             </form>
           </div>
         </div>
