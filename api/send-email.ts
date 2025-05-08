@@ -31,7 +31,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       to: ['nimirelimi@gmail.com'],
       subject: `New Contact Form Submission: ${subject}`,
       html,
-      reply_to: email,
+      replyTo: email,
     });
 
     if (error) {
