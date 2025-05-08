@@ -1,6 +1,8 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
 import { Resend } from 'resend';
 
+console.log('RESEND_API_KEY:', process.env.RESEND_API_KEY ? 'Present' : 'MISSING');
+
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -35,11 +37,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     });
 
     if (error) {
+      console.error('Resend error:', error);
       return res.status(500).json({ error: error.message || 'Failed to send email' });
     }
 
     return res.status(200).json({ message: 'Email sent successfully!' });
   } catch (err: any) {
+    console.error('Catch error:', err);
     return res.status(500).json({ error: err.message || 'Internal Server Error' });
   }
 }
