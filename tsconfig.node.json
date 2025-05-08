@@ -1,22 +1,15 @@
 {
   "compilerOptions": {
-    "composite": true,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "target": "ES2022",
     "lib": ["ES2023"],
-    "module": "ESNext",
-    "skipLibCheck": true,
-    "outDir": "./dist-node",
-
-    /* Bundler mode */
-    "moduleResolution": "bundler",
-    "isolatedModules": true,
-    "moduleDetection": "force",
-
-    /* Linting */
     "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "isolatedModules": true
   },
-  "include": ["api/**/*.mts", "api/**/*.ts", "vite.config.ts"]
+  "include": ["api/**/*.mts", "api/**/*.ts"],
+  "exclude": ["node_modules"]
 }
