@@ -55,8 +55,8 @@ const Destinations: React.FC = () => {
       <div className="absolute top-0 left-0 w-full h-16 bg-gradient-to-t from-transparent to-white pointer-events-none" />
       <div className="container mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-yellow-500 mb-4">Services Offered</h2>
-          <div className="w-20 h-1 bg-blue-900 mx-auto mb-8"></div>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#00004B' }}>Services Offered</h2>
+          <div className="w-20 h-1 mx-auto mb-8" style={{ backgroundColor: '#EFBF04' }}></div>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

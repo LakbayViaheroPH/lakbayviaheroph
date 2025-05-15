@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { Send } from 'lucide-react';
 import lakbayLogo from '../../images/lakbayviaherologo.jpg';
 import contactBg from '../../images/wholebg.jpg';
+import { sendContactFormEmailViaProxy } from '../services/emailProxyService';
 
 const serviceOptions = [
   { id: 'flights', name: 'FLIGHTS' },
@@ -76,19 +77,19 @@ const ContactSection: React.FC = () => {
     setSubmitMessage('');
 
     try {
-      const response = await fetch('/api/send-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      const result = await response.json();
-
-      if (response.ok) {
-        setSubmitStatus('success');
-        setSubmitMessage(result.message || 'Thank you! Your message has been sent.');
+      console.log("Form submission started via proxy");
+      
+      // Use the proxy email service to send the form data
+      const result = await sendContactFormEmailViaProxy(formData);
+      
+      console.log("Email proxy service result:", result);
+      
+      // Set the status based on the result
+      setSubmitStatus(result.success ? 'success' : 'error');
+      setSubmitMessage(result.message);
+      
+      // If successful, reset the form
+      if (result.success) {
         setFormData({
           name: '',
           email: '',
@@ -98,15 +99,14 @@ const ContactSection: React.FC = () => {
           service: '',
           message: ''
         });
-      } else {
-        setSubmitStatus('error');
-        setSubmitMessage(result.error || 'Sorry, something went wrong. Please try again.');
       }
     } catch (error) {
+      // Handle any potential errors
+      console.error("Form submission error:", error);
       setSubmitStatus('error');
-      setSubmitMessage('An unexpected error occurred. Please check your connection and try again.');
-      console.error('Form submission error:', error);
+      setSubmitMessage('An unexpected error occurred. Please try again later.');
     }
+    
     setIsSubmitting(false);
   };
   
@@ -123,8 +123,8 @@ const ContactSection: React.FC = () => {
       <div className="absolute top-0 left-0 w-full h-16 bg-gradient-to-t from-transparent to-white pointer-events-none" />
       <div className="container mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-yellow-500 mb-4">Contact Us</h2>
-          <div className="w-20 h-1 bg-blue-900 mx-auto mb-8"></div>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#00004B' }}>Contact Us</h2>
+          <div className="w-20 h-1 mx-auto mb-8" style={{ backgroundColor: '#EFBF04' }}></div>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
             Ready to start your adventure? Get in touch with our team and we'll help you plan the perfect trip.
           </p>
@@ -150,11 +150,11 @@ const ContactSection: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
-                  <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" />
+                  <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleChange} required className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" />
                 </div>
                 <div>
                   <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-1">Address</label>
-                  <input type="text" id="address" name="address" value={formData.address} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" />
+                  <input type="text" id="address" name="address" value={formData.address} onChange={handleChange} required className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" />
                 </div>
               </div>
               {/* Subject */}

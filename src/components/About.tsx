@@ -37,8 +37,8 @@ const About: React.FC = () => {
     >
       <div className="container mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-yellow-500 mb-4">About Us</h2>
-          <div className="w-20 h-1 bg-blue-900 mx-auto mb-8"></div>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#00004B' }}>About Us</h2>
+          <div className="w-20 h-1 mx-auto mb-8" style={{ backgroundColor: '#EFBF04' }}></div>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
             All great journeys begin with a dream. Lakbay Viahero Co., doing business under the name and style of LakbayViahero.ph, was created to eliminate the stress and confusion that often comes with travel planning.
           </p>
@@ -77,7 +77,7 @@ const About: React.FC = () => {
               <div className="mb-4 inline-block p-3 bg-blue-100 rounded-full">
                 {feature.icon}
               </div>
-              <h3 className="text-xl font-semibold text-yellow-500 mb-2">{feature.title}</h3>
+              <h3 className="text-xl font-semibold mb-2" style={{ color: '#00004B' }}>{feature.title}</h3>
               <p className="text-gray-600">{feature.description}</p>
             </div>
           ))}

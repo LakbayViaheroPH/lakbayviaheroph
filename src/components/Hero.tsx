@@ -71,8 +71,12 @@ const Hero: React.FC = () => {
       {/* Ensure hero-content is above the overlay */}
       <div className="hero-content relative z-10 text-center px-4">
         <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight">
-          <span className="block text-yellow-500">LakbayViahero.ph</span>
-          <span className="block mt-2 text-4xl md:text-5xl lg:text-6xl">𝘛𝘢𝘬𝘦 𝘵𝘩𝘦 𝘑𝘰𝘶𝘳𝘯𝘦𝘺, 𝘞𝘦'𝘭𝘭 𝘏𝘢𝘯𝘥𝘭𝘦 𝘵𝘩𝘦 𝘙𝘦𝘴𝘵!</span>
+          <span className="block">
+            <span style={{ color: '#00004B' }}>Lakbay</span>
+            <span style={{ color: '#EFBF04' }}>Viahero</span>
+            <span style={{ color: '#00004B' }}>.ph</span>
+          </span>
+          <span className="block mt-8 text-4xl md:text-5xl lg:text-6xl">𝘛𝘢𝘬𝘦 𝘵𝘩𝘦 𝘑𝘰𝘶𝘳𝘯𝘦𝘺, 𝘞𝘦'𝘭𝘭 𝘏𝘢𝘯𝘥𝘭𝘦 𝘵𝘩𝘦 𝘙𝘦𝘴𝘵!</span>
         </h1>
 
         <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
@@ -80,7 +84,7 @@ const Hero: React.FC = () => {
             onClick={() => handleHeroButtonClick('#destinations')}
             className="px-8 py-3 bg-blue-900 text-white rounded-full font-medium hover:bg-blue-700 transform transition hover:scale-105 duration-300"
           >
-            Our Services
+            Start Your Journey
           </button>
           <button 
             onClick={() => handleHeroButtonClick('#about')}

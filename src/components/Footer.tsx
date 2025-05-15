@@ -4,7 +4,7 @@ import lakbayLogo from '../../images/lakbayviaherologo.jpg';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-gray-900 text-white pt-16 pb-8">
+    <footer className="text-white pt-16 pb-8" style={{ backgroundColor: '#00004B' }}>
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {/* Company Info */}
@@ -14,7 +14,7 @@ const Footer: React.FC = () => {
               <span className="font-bold text-xl text-yellow-500">LakbayViahero.ph</span>
             </div>
             <p className="text-gray-400 mb-4">
-              Your trusted travel partner in the Philippines and beyond.
+              Your trusted travel hero in the Philippines and beyond.
             </p>
           </div>
           
@@ -47,18 +47,18 @@ const Footer: React.FC = () => {
             <div className="space-y-4">
               {/* Icon-only social links */}
               <div className="flex space-x-4 mb-4">
-                <a href="https://www.tiktok.com/@lakbayviahero" title="TikTok" className="text-blue-900 hover:text-blue-700 transition-colors">
+                <a href="https://www.tiktok.com/@lakbayviahero" title="TikTok" className="text-yellow-500 hover:text-yellow-400 transition-colors">
                   <svg fill="currentColor" width="18px" height="18px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" xmlSpace="preserve">
                     <path d="M19.589 6.686a4.793 4.793 0 0 1-3.77-4.245V2h-3.445v13.672a2.896 2.896 0 0 1-5.201 1.743l-.002-.001.002.001a2.895 2.895 0 0 1 3.183-4.51v-3.5a6.329 6.329 0 0 0-5.394 10.692 6.33 6.33 0 0 0 10.857-4.424V8.687a8.182 8.182 0 0 0 4.773 1.526V6.79a4.831 4.831 0 0 1-1.003-.104z"/>
                   </svg>
                 </a>
-                <a href="https://www.facebook.com/lakbayviahero.ph" title="Facebook" className="text-blue-900 hover:text-blue-700 transition-colors">
+                <a href="https://www.facebook.com/lakbayviahero.ph" title="Facebook" className="text-yellow-500 hover:text-yellow-400 transition-colors">
                   <Facebook size={18} />
                 </a>
-                <a href="https://www.instagram.com/lakbayviahero.ph" title="Instagram" className="text-blue-900 hover:text-blue-700 transition-colors">
+                <a href="https://www.instagram.com/lakbayviahero.ph" title="Instagram" className="text-yellow-500 hover:text-yellow-400 transition-colors">
                   <Instagram size={18} />
                 </a>
-                <a href="https://www.linkedin.com/company/lakbayviahero-ph" title="LinkedIn" className="text-blue-900 hover:text-blue-700 transition-colors">
+                <a href="https://www.linkedin.com/company/lakbayviahero-ph" title="LinkedIn" className="text-yellow-500 hover:text-yellow-400 transition-colors">
                   <Linkedin size={18} />
                 </a>
               </div>

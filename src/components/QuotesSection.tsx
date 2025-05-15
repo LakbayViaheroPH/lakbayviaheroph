@@ -67,6 +67,17 @@ const QuotesSection: React.FC = () => {
     return () => clearTimeout(timeout);
   }, [currentQuoteIndex, displayText, isTyping, isDeleting]);
   
+  // Function to handle the scroll to destinations/services section
+  const handleStartJourneyClick = () => {
+    const contactSection = document.querySelector('#contact');
+    if (contactSection) {
+      window.scrollTo({
+        top: contactSection.getBoundingClientRect().top + window.scrollY - 80, // offset for navbar
+        behavior: 'smooth'
+      });
+    }
+  };
+  
   return (
     <section
       ref={sectionRef}
@@ -89,7 +100,10 @@ const QuotesSection: React.FC = () => {
           </p>
         </div>
         
-        <button className="mt-8 px-8 py-3 bg-white text-blue-900 rounded-full font-medium hover:bg-blue-50 transform transition hover:scale-105 duration-300">
+        <button 
+          onClick={handleStartJourneyClick}
+          className="mt-8 px-8 py-3 bg-white text-blue-900 rounded-full font-medium hover:bg-blue-50 transform transition hover:scale-105 duration-300"
+        >
           Start Your Journey
         </button>
       </div>

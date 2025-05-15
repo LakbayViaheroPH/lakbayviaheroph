@@ -42,8 +42,8 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ destination, onCardCl
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent">
             <div className="absolute bottom-0 left-0 right-0 p-6">
-              <h3 className="text-2xl font-bold text-yellow-500 mb-2">{destination.name}</h3>
-              <p className="text-sm text-white/75">{destination.shortDescription}</p>
+              <h3 className="text-2xl font-bold text-white mb-2">{destination.name}</h3>
+              <p className="text-sm text-white">{destination.shortDescription}</p>
             </div>
           </div>
         </div>
@@ -53,9 +53,9 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ destination, onCardCl
           className="absolute w-full h-full backface-hidden rotate-y-180 bg-white rounded-xl p-6 shadow-lg flex flex-col justify-between"
         >
           <div>
-            <h3 className="text-2xl font-semibold text-yellow-500 uppercase tracking-wide mb-2">{destination.name}</h3>
+            <h3 className="text-2xl font-semibold text-black uppercase tracking-wide mb-2">{destination.name}</h3>
             <hr className="w-12 border-t-2 border-blue-900 mb-4" />
-            <p className="text-gray-700 italic leading-relaxed mb-4">{destination.fullDescription}</p>
+            <p className="text-black italic leading-relaxed mb-4">{destination.fullDescription}</p>
           </div>
           
           <button
