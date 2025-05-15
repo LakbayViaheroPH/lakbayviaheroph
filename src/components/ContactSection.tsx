@@ -77,12 +77,19 @@ const ContactSection: React.FC = () => {
     setSubmitMessage('');
 
     try {
-      console.log("Form submission started via proxy");
+      console.log("Form submission started (Vercel Serverless)");
       
-      // Use the proxy email service to send the form data
-      const result = await sendContactFormEmailViaProxy(formData);
+      // Use the Vercel serverless function endpoint
+      const response = await fetch('/api/send-email', { // Relative path for Vercel
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
       
-      console.log("Email proxy service result:", result);
+      const result = await response.json();
+      console.log("Serverless function result:", result);
       
       // Set the status based on the result
       setSubmitStatus(result.success ? 'success' : 'error');
