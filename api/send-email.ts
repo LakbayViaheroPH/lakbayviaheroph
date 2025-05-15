@@ -34,7 +34,7 @@ export default async function handler(
     `;
 
     const response = await resend.emails.send({
-      from: 'LakbayViahero <onboarding@resend.dev>', // Ensure this email is verified in Resend
+      from: 'LakbayViahero <info@lakbayviaheroph.com>', // Ensure this email is verified in Resend
       to: ['nimirelimi@gmail.com'],
       subject: `New Contact Form: ${subject}`,
       html: htmlContent,
