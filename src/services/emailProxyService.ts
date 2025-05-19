@@ -6,6 +6,7 @@ export type ContactFormData = {
   subject: string;
   service: string;
   message: string;
+  referral: string;
 };
 
 /**
@@ -13,7 +14,7 @@ export type ContactFormData = {
  */
 export async function sendContactFormEmailViaProxy(data: ContactFormData): Promise<{ success: boolean; message: string }> {
   try {
-    const { name, email, phone, address, subject, service, message } = data;
+    const { name, email, phone, address, subject, service, message, referral } = data;
     
     // Create HTML content for the email
     const htmlContent = `
@@ -24,6 +25,7 @@ export async function sendContactFormEmailViaProxy(data: ContactFormData): Promi
       <p><strong>Address:</strong> ${address}</p>
       <p><strong>Subject:</strong> ${subject}</p>
       <p><strong>Service:</strong> ${service}</p>
+      <p><strong>Referral:</strong> ${referral || 'N/A'}</p>
       <h3>Message:</h3>
       <p>${message}</p>
     `;

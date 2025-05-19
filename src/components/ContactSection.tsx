@@ -24,7 +24,8 @@ const ContactSection: React.FC = () => {
     address: '',
     subject: '',
     service: '',
-    message: ''
+    message: '',
+    referral: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | null>(null);
@@ -77,19 +78,31 @@ const ContactSection: React.FC = () => {
     setSubmitMessage('');
 
     try {
-      console.log("Form submission started (Vercel Serverless)");
+      console.log("Form submission started");
       
-      // Use the Vercel serverless function endpoint
-      const response = await fetch('/api/send-email', { // Relative path for Vercel
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      let result;
       
-      const result = await response.json();
-      console.log("Serverless function result:", result);
+      // Check if we're in development environment
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        // Use the proxy service for development
+        console.log("Using proxy service for development");
+        const proxyResult = await sendContactFormEmailViaProxy(formData);
+        result = proxyResult;
+      } else {
+        // Use the Vercel serverless function for production
+        console.log("Using Vercel serverless function for production");
+        const response = await fetch('/api/send-email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
+        
+        result = await response.json();
+      }
+      
+      console.log("Form submission result:", result);
       
       // Set the status based on the result
       setSubmitStatus(result.success ? 'success' : 'error');
@@ -104,7 +117,8 @@ const ContactSection: React.FC = () => {
           address: '',
           subject: '',
           service: '',
-          message: ''
+          message: '',
+          referral: ''
         });
       }
     } catch (error) {
@@ -178,6 +192,11 @@ const ContactSection: React.FC = () => {
                     <option key={opt.id} value={opt.name}>{opt.name}</option>
                   ))}
                 </select>
+              </div>
+              {/* Referral */}
+              <div>
+                <label htmlFor="referral" className="block text-sm font-medium text-gray-700 mb-1">Referral (Optional)</label>
+                <input type="text" id="referral" name="referral" value={formData.referral} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" />
               </div>
               {/* Message */}
               <div>

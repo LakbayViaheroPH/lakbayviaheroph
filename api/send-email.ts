@@ -14,7 +14,7 @@ export default async function handler(
   }
 
   try {
-    const { name, email, phone, address, subject, service, message } = req.body;
+    const { name, email, phone, address, subject, service, message, referral } = req.body;
 
     // Basic validation (you can expand this)
     if (!name || !email || !subject || !message) {
@@ -29,6 +29,7 @@ export default async function handler(
       <p><strong>Address:</strong> ${address || 'N/A'}</p>
       <p><strong>Subject:</strong> ${subject}</p>
       <p><strong>Service:</strong> ${service || 'N/A'}</p>
+      <p><strong>Referral:</strong> ${referral || 'N/A'}</p>
       <h3>Message:</h3>
       <p>${message}</p>
     `;
